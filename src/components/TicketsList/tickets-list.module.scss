@@ -9,3 +9,15 @@
   font-weight: 600;
   letter-spacing: 0.5px;
 }
+
+.spiner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+}
+
+.error {
+  margin-bottom: 100px;
+  text-align: center;
+}
