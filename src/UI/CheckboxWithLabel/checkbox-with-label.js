@@ -1,6 +1,6 @@
 import styles from './checkbox-with-label.module.scss'
 
-export default function CheckboxWithLabel({ id, label, onChange, className }) {
+export default function CheckboxWithLabel({ id, label, onChange, className, checkedState = false }) {
   return (
     <div className={className}>
       <input
@@ -8,6 +8,7 @@ export default function CheckboxWithLabel({ id, label, onChange, className }) {
         id={id}
         type="checkbox"
         onChange={onChange}
+        checked={checkedState}
       />
       <label
         className={styles.text}
