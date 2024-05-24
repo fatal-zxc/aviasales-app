@@ -30,12 +30,16 @@
 
 .segment {
   display: flex;
-  justify-content: space-between;
   height: 40px;
 }
 
 .info {
   text-transform: uppercase;
+  margin-right: 100px;
+}
+
+.info:nth-of-type(3) {
+  margin-right: 0;
 }
 
 .info:nth-of-type(2) .bottom {

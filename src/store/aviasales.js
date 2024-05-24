@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 export const fetchSearchId = createAsyncThunk('data/fetchSearchId', async () => {
@@ -25,7 +24,7 @@ const aviasalesReducer = createSlice({
     searchId: '',
     tickets: [],
     stop: false,
-    error: false,
+    errorCounter: 0,
     firstLoaded: false,
   },
   reducers: {},
@@ -39,10 +38,10 @@ const aviasalesReducer = createSlice({
         state.tickets.push(...action.payload.tickets)
         state.stop = action.payload.stop
         state.firstLoaded = true
-        state.error = false
+        state.errorCounter = 0
       })
       .addCase(fetchTickets.rejected, (state) => {
-        state.error = true
+        state.errorCounter += 1
       })
   },
 })

@@ -1,11 +1,12 @@
 import logo from '../../logo.svg'
+import ProgressBar from '../ProgressBar/ProgressBar'
 import FilterPrice from '../FilterPrice'
 import FilterTransfer from '../FilterTransfer/filter-transfer'
 import TicketsList from '../TicketsList'
 
 import styles from './app.module.scss'
 
-function App() {
+export default function App() {
   return (
     <section className={styles.app}>
       <header className={styles.header}>
@@ -14,6 +15,7 @@ function App() {
           src={logo}
           alt="logo"
         />
+        <ProgressBar />
       </header>
       <main className={styles.main}>
         <FilterTransfer />
@@ -25,5 +27,3 @@ function App() {
     </section>
   )
 }
-
-export default App

@@ -1,13 +1,12 @@
-/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit'
 
 const transfersReducer = createSlice({
   name: 'transfers',
   initialState: {
-    zero: false,
-    one: false,
-    two: false,
-    three: false,
+    zero: true,
+    one: true,
+    two: true,
+    three: true,
   },
   reducers: {
     toggle: (state, action) => {

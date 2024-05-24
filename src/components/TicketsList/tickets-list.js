@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Spin, Alert } from 'antd'
 
@@ -11,12 +11,38 @@ export default function TicketsList() {
   const ticketsData = useSelector((state) => state.aviasales.tickets)
   const id = useSelector((state) => state.aviasales.searchId)
   const stop = useSelector((state) => state.aviasales.stop)
-  const error = useSelector((state) => state.aviasales.error)
+  const errorCounter = useSelector((state) => state.aviasales.errorCounter)
   const firstLoaded = useSelector((state) => state.aviasales.firstLoaded)
-  const dispatch = useDispatch()
-  let ticketIdCounter = 0
+  const priceSort = useSelector((state) => state.sort.value)
+  const transfersFilters = useSelector((state) => state.transfers)
 
-  const tickets = ticketsData.slice(0, 5).map((ticket) => {
+  const dispatch = useDispatch()
+
+  const [ticketsLength, setTicketsLength] = useState(5)
+
+  let ticketIdCounter = 0
+  let ticketsDataSort = JSON.parse(JSON.stringify(ticketsData))
+
+  if (!transfersFilters.zero) {
+    ticketsDataSort = ticketsDataSort.filter((ticket) => ticket.segments[0].stops.length !== 0)
+  }
+  if (!transfersFilters.one) {
+    ticketsDataSort = ticketsDataSort.filter((ticket) => ticket.segments[0].stops.length !== 1)
+  }
+  if (!transfersFilters.two) {
+    ticketsDataSort = ticketsDataSort.filter((ticket) => ticket.segments[0].stops.length !== 2)
+  }
+  if (!transfersFilters.three) {
+    ticketsDataSort = ticketsDataSort.filter((ticket) => ticket.segments[0].stops.length !== 3)
+  }
+
+  if (priceSort === 'cheap' && ticketsData.length !== 0) {
+    ticketsDataSort.sort((a, b) => a.price - b.price)
+  } else if (priceSort === 'fastest' && ticketsData.length !== 0) {
+    ticketsDataSort.sort((a, b) => a.segments[0].duration - b.segments[0].duration)
+  }
+
+  const tickets = ticketsDataSort.slice(0, ticketsLength).map((ticket) => {
     ticketIdCounter += 1
     return (
       <Ticket
@@ -34,28 +60,45 @@ export default function TicketsList() {
   }, [])
 
   useEffect(() => {
-    if (id === '' || stop || error) return
+    if (id === '' || stop || errorCounter >= 3) return
     dispatch(fetchTickets(id))
-  }, [id, tickets, error])
+  }, [id, ticketsData, errorCounter])
 
-  const loader = !firstLoaded && !error ? <Spin className={styles.spiner} /> : null
+  useEffect(() => {
+    setTicketsLength(5)
+  }, [priceSort, transfersFilters])
+
+  const loader = !firstLoaded && !(errorCounter >= 3) ? <Spin className={styles.spiner} /> : null
+
   const main = firstLoaded ? (
     <div>
       {tickets}
-      <button
-        className={styles.show}
-        type="button"
-      >
-        показать еще 5 билетов!
-      </button>
+      {ticketsDataSort.length >= ticketsLength ? (
+        <button
+          className={styles.show}
+          type="button"
+          onClick={() => setTicketsLength(ticketsLength + 5)}
+        >
+          показать еще 5 билетов!
+        </button>
+      ) : null}
     </div>
   ) : null
+
   const errorMessage =
-    error && !firstLoaded ? (
+    errorCounter >= 3 && !firstLoaded ? (
       <Alert
         type="error"
         message="smth went wrong"
-        className={styles.error}
+        className={styles.message}
+      />
+    ) : null
+
+  const emptyMessage =
+    !ticketsDataSort.length && firstLoaded ? (
+      <Alert
+        message="Рейсов, подходящих под заданные фильтры, не найдено"
+        className={styles.message}
       />
     ) : null
 
@@ -64,6 +107,7 @@ export default function TicketsList() {
       {loader}
       {main}
       {errorMessage}
+      {emptyMessage}
     </>
   )
 }
