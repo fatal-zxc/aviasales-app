@@ -1,1 +1,1 @@
-site: 
+site: https://aviasales-app-one-iota.vercel.app/
