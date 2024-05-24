@@ -1,7 +1,7 @@
 import { Progress } from 'antd'
 import { useSelector } from 'react-redux'
 
-import styles from './ProgressBar.module.scss'
+import styles from './progress-bar.module.scss'
 
 export default function ProgressBar() {
   const dataLength = useSelector((state) => state.aviasales.tickets).length

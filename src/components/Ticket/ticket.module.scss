@@ -9,6 +9,14 @@
   margin-bottom: 20px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   border-radius: 3px;
+
+  @media (max-width: 900px) {
+    width: 360px;
+  }
+
+  @media (max-width: 515px) {
+    width: 310px;
+  }
 }
 
 .header {
@@ -36,6 +44,14 @@
 .info {
   text-transform: uppercase;
   margin-right: 100px;
+
+  @media (max-width: 900px) {
+    margin-right: 50px;
+  }
+
+  @media (max-width: 515px) {
+    margin-right: 30px;
+  }
 }
 
 .info:nth-of-type(3) {

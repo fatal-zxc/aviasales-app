@@ -1,7 +1,7 @@
 import logo from '../../logo.svg'
-import ProgressBar from '../ProgressBar/ProgressBar'
+import ProgressBar from '../ProgressBar'
 import FilterPrice from '../FilterPrice'
-import FilterTransfer from '../FilterTransfer/filter-transfer'
+import FilterTransfer from '../FilterTransfer'
 import TicketsList from '../TicketsList'
 
 import styles from './app.module.scss'

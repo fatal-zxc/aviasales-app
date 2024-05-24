@@ -1,0 +1,17 @@
+.progress {
+  margin-top: 30px;
+  width: 700px;
+
+  @media (max-width: 900px) {
+    width: 600px;
+  }
+
+  @media (max-width: 650px) {
+    width: 500px;
+  }
+
+  @media (max-width: 515px) {
+    width: 300px;
+    margin-top: 10px;
+  }
+}

@@ -4,6 +4,14 @@
   width: 500px;
   height: 50px;
   margin-bottom: 20px;
+
+  @media (max-width: 900px) {
+    width: 400px;
+  }
+
+  @media (max-width: 515px) {
+    width: 355px;
+  }
 }
 
 .filter {
@@ -15,6 +23,10 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+
+  @media (max-width: 900px) {
+    font-size: 10px;
+  }
 }
 
 .selected {
